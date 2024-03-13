@@ -46,14 +46,22 @@
             document.getElementById("answer-D-button").value = answerArray[3]
         }
 
-        function validateAnswer(answer) {
+        function validateAnswer(answer, abcd) {
             if(answer === questions.results[currentQuestionNumber].correct_answer) {
-                alert("Correct! Next question.")
-                currentQuestionNumber += 1
-                nextQuestion(questions, currentQuestionNumber)
+                document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "green"
+                setTimeout(() => {
+                    alert("Correct! Next question.")
+                    document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "buttonface"
+                    currentQuestionNumber += 1
+                    nextQuestion(questions, currentQuestionNumber)
+                }, 1500)
             } else {
-                alert("Incorrect! Try again.")
-                getQuestions()
+                document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "red"
+                setTimeout(() => {
+                    alert("Incorrect! Try again.")
+                    document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "buttonface"
+                    getQuestions()
+                }, 1500)
             }
         }
 
@@ -76,12 +84,12 @@
         <div id="question-div"><h3 id="question-h3"></h3></div>
         <div id="buttons-div">
             <div class="buttons-row-div">
-                <button id="answer-A-button" onclick="validateAnswer(this.value)">A: </button>
-                <button id="answer-B-button" onclick="validateAnswer(this.value)">B: </button>
+                <button id="answer-A-button" onclick="validateAnswer(this.value, 'A')">A: </button>
+                <button id="answer-B-button" onclick="validateAnswer(this.value, 'B')">B: </button>
             </div>
             <div class="buttons-row-div">
-                <button id="answer-C-button" onclick="validateAnswer(this.value)">C: </button>
-                <button id="answer-D-button" onclick="validateAnswer(this.value)">D: </button>
+                <button id="answer-C-button" onclick="validateAnswer(this.value, 'C')">C: </button>
+                <button id="answer-D-button" onclick="validateAnswer(this.value, 'D')">D: </button>
             </div>
         </div>
     </div>
