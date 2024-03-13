@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <title>Millionaire?</title>
+    <script>
+        // globalne varijable
+        // ?? dal je ovo okej i postoji li neki drugi nacin kak ovo postici osim local/session storagea ??
+        let questions;
+        let currentQuestionNumber = 0;
+
+        async function getQuestions() {
+            const url = 'https://opentdb.com/api.php?amount=15&type=multiple'
+            try {
+                const response = await fetch(url)
+                if (response.status === 200) {
+                    questions = await response.json()
+                    console.log(questions);
+                    document.getElementById("question-container").style.display = "flex"
+                    document.getElementById("start-button").style.display = "none"
+                    currentQuestionNumber = 0;
+                    nextQuestion(questions, currentQuestionNumber);
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        function nextQuestion() {
+            const div = document.getElementById("question-h3")
+            div.innerHTML = questions.results[currentQuestionNumber].question
+            let answerArray = [questions.results[currentQuestionNumber].correct_answer]
+            questions.results[currentQuestionNumber].incorrect_answers.forEach(element => {
+                answerArray.push(element)
+            });
+            shuffleArray(answerArray)
+            document.getElementById("answer-A-button").innerText = "A: " + answerArray[0]
+            document.getElementById("answer-A-button").value = answerArray[0]
+            document.getElementById("answer-B-button").innerText = "B: " + answerArray[1]
+            document.getElementById("answer-B-button").value = answerArray[1]
+            document.getElementById("answer-C-button").innerText = "C: " + answerArray[2]
+            document.getElementById("answer-C-button").value = answerArray[2]
+            document.getElementById("answer-D-button").innerText = "D: " + answerArray[3]
+            document.getElementById("answer-D-button").value = answerArray[3]
+        }
+
+        function validateAnswer(answer) {
+            if(answer === questions.results[currentQuestionNumber].correct_answer) {
+                alert("Correct! Next question.")
+                currentQuestionNumber += 1
+                nextQuestion(questions, currentQuestionNumber)
+            } else {
+                alert("Incorrect! Try again.")
+                getQuestions()
+            }
+        }
+
+        // ukradeno
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+    </script>
+</head>
+<body>
+    <header><h2>Who Wants to Be a Millionaire?</h2></header>
+    <div style="text-align: center;">
+        <br><br><br>
+        <button style="height: 8em; width: 12em; font-size:large; font-weight: bold;" onclick="getQuestions()" id="start-button">Start</button>
+    </div>
+    <div id="question-container" style="display: none;">
+        <div id="question-div"><h3 id="question-h3"></h3></div>
+        <div id="buttons-div">
+            <div class="buttons-row-div">
+                <button id="answer-A-button" onclick="validateAnswer(this.value)">A: </button>
+                <button id="answer-B-button" onclick="validateAnswer(this.value)">B: </button>
+            </div>
+            <div class="buttons-row-div">
+                <button id="answer-C-button" onclick="validateAnswer(this.value)">C: </button>
+                <button id="answer-D-button" onclick="validateAnswer(this.value)">D: </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
