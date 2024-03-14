@@ -4,7 +4,7 @@ body {
 
 header {
     text-align: center;
-    height: 100px;
+    height: 50px;
 }
 
 h2 {
@@ -13,7 +13,7 @@ h2 {
 }
 
 #start-div {
-    height: calc(100vh - 116px);
+    height: calc(100vh - 66px);
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -26,8 +26,24 @@ h2 {
     font-weight: bold;
 }
 
+#counter-div {
+    position: relative;
+    padding: 10px;
+}
+
+#questionPointer {
+    border: 2px solid green; 
+    height: 19px; 
+    position: absolute; 
+    width: calc(100% - 24px); 
+    top: 278.62px;
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+
 #question-container {
     height: calc(100vh - 116px);
+    position: relative;
     padding-left: 20px;
     padding-right: 20px;
 

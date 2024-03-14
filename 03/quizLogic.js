@@ -2,8 +2,10 @@
 // ?? dal je ovo okej i postoji li neki drugi nacin kak ovo postici osim local/session storagea ??
 let questions;
 let currentQuestionNumber = 0;
+const topMarginForPointer = 278.62;
 
 async function getQuestions() {
+  currentQuestionNumber = 0;
   const url = "https://opentdb.com/api.php?amount=15&type=multiple";
   try {
     const response = await fetch(url);
@@ -11,23 +13,31 @@ async function getQuestions() {
       questions = await response.json();
       console.log(questions);
       document.getElementById("question-container").style.display = "flex";
+      document.getElementById("counter-div").style.display = "block";
       document.getElementById("start-div").style.display = "none";
-      currentQuestionNumber = 0;
-      nextQuestion(questions, currentQuestionNumber);
+      nextQuestion();
     }
   } catch (error) {
     console.error(error);
   }
 }
 function nextQuestion() {
+  console.log(currentQuestionNumber);
   const div = document.getElementById("question-h3");
   div.innerHTML = questions.results[currentQuestionNumber].question;
+
+  if (currentQuestionNumber != 0) {
+    let topMargin = 278.62 - currentQuestionNumber * 19.33;
+    document.getElementById("questionPointer").style.top = `${topMargin}px`;
+  } else {
+    document.getElementById("questionPointer").style.top = "278.62px";
+  }
+
+  //document.getElementById("counter-a").innerHTML = `Question: ${currentQuestionNumber + 1}`;
   let answerArray = [questions.results[currentQuestionNumber].correct_answer];
-  questions.results[currentQuestionNumber].incorrect_answers.forEach(
-    (element) => {
-      answerArray.push(element);
-    }
-  );
+  questions.results[currentQuestionNumber].incorrect_answers.forEach((element) => {
+    answerArray.push(element);
+  });
   shuffleArray(answerArray);
   document.getElementById("answer-A-button").innerText = "A: " + answerArray[0];
   document.getElementById("answer-A-button").value = answerArray[0];
@@ -42,24 +52,26 @@ function nextQuestion() {
 function validateAnswer(answer, abcd) {
   const rightAnswer = questions.results[currentQuestionNumber].correct_answer;
   if (answer === rightAnswer) {
-    document.getElementById(`answer-${abcd}-button`).style.backgroundColor =
-      "green";
+    document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "green";
+    currentQuestionNumber += 1;
     setTimeout(() => {
-      // alert("Correct! Next question.")
-      document.getElementById(`answer-${abcd}-button`).style.backgroundColor =
-        "buttonface";
-      currentQuestionNumber += 1;
+      if (currentQuestionNumber == 3) {
+        alert("YOU WON!");
+        document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "buttonface";
+        getQuestions();
+      } else {
+        alert("Correct! Next question.");
+        document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "buttonface";
+      }
       nextQuestion(questions, currentQuestionNumber);
-    }, 1500);
+    }, 100);
   } else {
-    document.getElementById(`answer-${abcd}-button`).style.backgroundColor =
-      "red";
+    document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "red";
     setTimeout(() => {
       alert(`Incorrect! Try again. Correct answer is: ${rightAnswer}`);
-      document.getElementById(`answer-${abcd}-button`).style.backgroundColor =
-        "buttonface";
+      document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "buttonface";
       getQuestions();
-    }, 1500);
+    }, 100);
   }
 }
 
