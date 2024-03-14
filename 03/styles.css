@@ -1,10 +1,35 @@
+body {
+    min-height: calc(100vh - 16px);
+}
+
 header {
     text-align: center;
+    height: 100px;
+}
+
+h2 {
+    margin: 0px;
+    padding: 10px;
+}
+
+#start-div {
+    height: calc(100vh - 116px);
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#start-button {
+    height: 3em;
+    width: 12em;
+    margin: 3em;
+    font-size: large;
+    font-weight: bold;
 }
 
 #question-container {
-    height: 50vh;
-    margin: 20px;
+    height: calc(100vh - 116px);
+    padding-left: 20px;
+    padding-right: 20px;
 
     display: flex;
     flex-direction: column;
@@ -29,7 +54,12 @@ header {
 
 .buttons-row-div {
     width: 80%;
+    height: 30%;
 
     display: flex;
     justify-content: space-evenly;
+}
+
+button {
+    width: 45%;
 }
