@@ -79,3 +79,38 @@ h2 {
 button {
     width: 45%;
 }
+
+footer {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0px;
+
+    width: 100%;
+}
+
+#lifeline-container {
+    position: relative;
+}
+
+.lifeline-button {
+    position: absolute;
+    width: 33%;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+}
+
+.lifeline-button:disabled {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#lifeline-button-1 {
+    left: 0%;
+}
+#lifeline-button-2 {
+    left: 33.33%;
+}
+#lifeline-button-3 {
+    left: 66.66%;
+}

@@ -22,6 +22,7 @@ async function getQuestions(difficultyFromForm) {
             console.log(questions.results)
             document.getElementById("question-container").style.display = "flex"
             document.getElementById("counter-div").style.display = "block"
+            document.querySelector("footer").style.display = "flex"
             document.getElementById("start-div").style.display = "none"
             nextQuestion()
         }
