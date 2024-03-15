@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <title>Millionaire?</title>
     <script src="quizLogic.js"></script>
+    <script src="lifelines.js"></script>
 </head>
 <body>
     <header><h2>Who Wants to Be a Millionaire?</h2></header>
@@ -50,9 +51,9 @@
     <footer style="display: none;">
         <div id="lifeline-container">
             <img style="height: 50px;" src="lifelines-cropped.png" alt="lifelines">
-            <button class="lifeline-button" id="lifeline-button-1" onclick="alert('pola pola')"></button>
-            <button class="lifeline-button" id="lifeline-button-2" onclick="alert('zovi čovika')"></button>
-            <button class="lifeline-button" id="lifeline-button-3" onclick="alert('pitaj publiku')"></button>
+            <button class="lifeline-button" id="lifeline-button-1" onclick="fifty_fifty(event)"></button>
+            <button class="lifeline-button" id="lifeline-button-2" onclick="phone_a_friend()"></button>
+            <button class="lifeline-button" id="lifeline-button-3" onclick="ask_the_audience()"></button>
         </div>
     </footer>
 </body>

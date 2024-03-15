@@ -31,6 +31,7 @@ async function getQuestions(difficultyFromForm) {
     }
 }
 function nextQuestion() {
+    enableAnswerButtons()
     const div = document.getElementById("question-h3")
     div.innerHTML = questions.results[currentQuestionNumber].question
 
@@ -76,6 +77,7 @@ function validateAnswer(answer, abcd) {
         setTimeout(() => {
             alert(`Incorrect! Try again. Correct answer is: ${rightAnswer}`)
             document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "buttonface"
+            enableLifelineButtons()
             getQuestions()
         }, 100)
     }
