@@ -11,7 +11,24 @@
 <body>
     <header><h2>Who Wants to Be a Millionaire?</h2></header>
     <div id="start-div" style="text-align: center;">
-        <button onclick="getQuestions()" id="start-button">Start</button>
+        <form style="margin-top: 3em;">
+            <label for="difficulty">Select difficulty</label><br>
+
+            <label for="any">Any</label>
+            <input type="radio" name="difficulty" id="any" value="any" onclick="updateDifficulty(this.value)" checked><br>
+
+            <label for="easy">Easy</label>
+            <input type="radio" name="difficulty" id="easy" value="easy" onclick="updateDifficulty(this.value)"><br>
+
+            <label for="medium">Medium</label>
+            <input type="radio" name="difficulty" id="medium" value="medium" onclick="updateDifficulty(this.value)"><br>
+
+            <label for="hard">Hard</label>
+            <input type="radio" name="difficulty" id="hard" value="hard" onclick="updateDifficulty(this.value)"><br>
+        </form>
+        <button onclick="getQuestions(this.value)" id="start-button" value="any">Start</button>
+        <br>*napomena - u .js datoteci se može podesiti na koliko pitanja se mora odgovoriti do pobjede, da se ne treba odgovarati na svih 15
+        <br>*odgovori na pitanja su ispisani u konzoli
     </div>
     <div id="question-container" style="display: none;">
         <div id="counter-div" style="display: none;">
@@ -21,12 +38,12 @@
         <div id="question-div"><h3 id="question-h3"></h3></div>
         <div id="buttons-div">
             <div class="buttons-row-div">
-                <button id="answer-A-button" onclick="validateAnswer(this.value, 'A')">A: </button>
-                <button id="answer-B-button" onclick="validateAnswer(this.value, 'B')">B: </button>
+                <button class="answer-button" id="answer-A-button" onclick="validateAnswer(this.value, 'A')">A: </button>
+                <button class="answer-button" id="answer-B-button" onclick="validateAnswer(this.value, 'B')">B: </button>
             </div>
             <div class="buttons-row-div">
-                <button id="answer-C-button" onclick="validateAnswer(this.value, 'C')">C: </button>
-                <button id="answer-D-button" onclick="validateAnswer(this.value, 'D')">D: </button>
+                <button class="answer-button" id="answer-C-button" onclick="validateAnswer(this.value, 'C')">C: </button>
+                <button class="answer-button" id="answer-D-button" onclick="validateAnswer(this.value, 'D')">D: </button>
             </div>
         </div>
     </div>

@@ -1,17 +1,25 @@
+const STEPS_TO_VICTORY = 15
+
 // globalne varijable
 // ?? dal je ovo okej i postoji li neki drugi nacin kak ovo postici osim local/session storagea ??
 let questions
+let difficulty
 let currentQuestionNumber = 0
-const topMarginForPointer = 278.62
 
-async function getQuestions() {
+async function getQuestions(difficultyFromForm) {
+    if (difficultyFromForm) {
+        difficulty = difficultyFromForm
+    }
     currentQuestionNumber = 0
-    const url = "https://opentdb.com/api.php?amount=15&type=multiple"
+    let url = "https://opentdb.com/api.php?amount=15&type=multiple"
+    if (!(difficulty === "any")) {
+        url = `https://opentdb.com/api.php?amount=15&difficulty=${difficulty}&type=multiple`
+    }
     try {
         const response = await fetch(url)
         if (response.status === 200) {
             questions = await response.json()
-            console.log(questions)
+            console.log(questions.results)
             document.getElementById("question-container").style.display = "flex"
             document.getElementById("counter-div").style.display = "block"
             document.getElementById("start-div").style.display = "none"
@@ -22,7 +30,6 @@ async function getQuestions() {
     }
 }
 function nextQuestion() {
-    console.log(currentQuestionNumber)
     const div = document.getElementById("question-h3")
     div.innerHTML = questions.results[currentQuestionNumber].question
 
@@ -33,20 +40,18 @@ function nextQuestion() {
         document.getElementById("questionPointer").style.top = "278.62px"
     }
 
-    //document.getElementById("counter-a").innerHTML = `Question: ${currentQuestionNumber + 1}`;
     let answerArray = [questions.results[currentQuestionNumber].correct_answer]
     questions.results[currentQuestionNumber].incorrect_answers.forEach((element) => {
         answerArray.push(element)
     })
     shuffleArray(answerArray)
-    document.getElementById("answer-A-button").innerText = "A: " + answerArray[0]
-    document.getElementById("answer-A-button").value = answerArray[0]
-    document.getElementById("answer-B-button").innerText = "B: " + answerArray[1]
-    document.getElementById("answer-B-button").value = answerArray[1]
-    document.getElementById("answer-C-button").innerText = "C: " + answerArray[2]
-    document.getElementById("answer-C-button").value = answerArray[2]
-    document.getElementById("answer-D-button").innerText = "D: " + answerArray[3]
-    document.getElementById("answer-D-button").value = answerArray[3]
+
+    let buttons = document.querySelectorAll(".answer-button")
+    let abcd = ["A", "B", "C", "D"]
+    for (let i = 0; i < 4; i++) {
+        buttons[i].innerHTML = abcd[i] + ": " + answerArray[i]
+        buttons[i].value = answerArray[i]
+    }
 }
 
 function validateAnswer(answer, abcd) {
@@ -55,15 +60,15 @@ function validateAnswer(answer, abcd) {
         document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "green"
         currentQuestionNumber += 1
         setTimeout(() => {
-            if (currentQuestionNumber == 3) {
+            if (currentQuestionNumber == STEPS_TO_VICTORY) {
                 alert("YOU WON!")
                 document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "buttonface"
                 getQuestions()
             } else {
                 alert("Correct! Next question.")
                 document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "buttonface"
+                nextQuestion()
             }
-            nextQuestion(questions, currentQuestionNumber)
         }, 100)
     } else {
         document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "red"
@@ -81,4 +86,9 @@ function shuffleArray(array) {
         const j = Math.floor(Math.random() * (i + 1))
         ;[array[i], array[j]] = [array[j], array[i]]
     }
+}
+
+function updateDifficulty(value) {
+    let startButton = document.getElementById("start-button")
+    startButton.value = value
 }
