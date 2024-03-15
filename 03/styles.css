@@ -1,5 +1,6 @@
 body {
     min-height: calc(100vh - 16px);
+    background-color: steelblue;
 }
 
 header {
@@ -78,6 +79,7 @@ h2 {
 
 button {
     width: 45%;
+    background-color: #AAB6A2;
 }
 
 
@@ -117,23 +119,26 @@ footer {
     left: 66.66%;
 }
 
-/* PHONE A FRIEND POP-UP */
-#phone_a_friend_pop_up{
+/* PHONE A FRIEND POP-UP    &&    YOU WON POP-UP*/
+#phone_a_friend_pop_up, #you_won_pop_up {
     position: fixed;
     height: 300px;
     width: 300px;
-    background-color: aliceblue;
+    background-color: #AAB6A2;
     border: 2px solid black;
     border-radius: 20px;
     top: calc(50% - 150px);
     left: calc(50% - 150px);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
-#close-button {
+#phone_a_friend_pop_up button,  #you_won_pop_up button{
+    background-color: steelblue;
     position: absolute;
     bottom: 10px;
     left: calc(50% - 37.5px);
     width: 75px;
     height: 30px;
+    border-radius: 10px;
 }
 .dot {
     background-color: black; 

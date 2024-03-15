@@ -1,4 +1,4 @@
-const STEPS_TO_VICTORY = 15
+const STEPS_TO_VICTORY = 1
 
 // globalne varijable
 // ?? dal je ovo okej i postoji li neki drugi nacin kak ovo postici osim local/session storagea ??
@@ -63,23 +63,22 @@ function validateAnswer(answer, abcd) {
         currentQuestionNumber += 1
         setTimeout(() => {
             if (currentQuestionNumber == STEPS_TO_VICTORY) {
-                alert("YOU WON!")
-                document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "buttonface"
-                getQuestions()
+                document.getElementById("you_won_pop_up").style.display = "block"
+                document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "#AAB6A2"
             } else {
                 alert("Correct! Next question.")
-                document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "buttonface"
+                document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "#AAB6A2"
                 nextQuestion()
             }
-        }, 100)
+        }, 1000)
     } else {
         document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "red"
         setTimeout(() => {
             alert(`Incorrect! Try again. Correct answer is: ${rightAnswer}`)
-            document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "buttonface"
+            document.getElementById(`answer-${abcd}-button`).style.backgroundColor = "#AAB6A2"
             enableLifelineButtons()
             getQuestions()
-        }, 100)
+        }, 1000)
     }
 }
 
@@ -94,4 +93,10 @@ function shuffleArray(array) {
 function updateDifficulty(value) {
     let startButton = document.getElementById("start-button")
     startButton.value = value
+}
+
+function close_you_won_popup() {
+    document.getElementById("you_won_pop_up").style.display = "none"
+    enableLifelineButtons()
+    getQuestions()
 }
