@@ -1,4 +1,4 @@
-const STEPS_TO_VICTORY = 1
+const STEPS_TO_VICTORY = 15
 
 // globalne varijable
 // ?? dal je ovo okej i postoji li neki drugi nacin kak ovo postici osim local/session storagea ??

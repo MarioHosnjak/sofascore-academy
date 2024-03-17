@@ -1,4 +1,5 @@
 //          50:50
+
 function fifty_fifty() {
     document.getElementById("lifeline-button-1").disabled = true
     let wrongAnswers = questions.results[currentQuestionNumber].incorrect_answers
@@ -37,13 +38,38 @@ function phone_a_friend() {
 function close_lifeline_popup() {
     document.getElementById("phone_a_friend_pop_up").style.display = "none"
     document.getElementById("right_answer_p").innerHTML = ""
+
+    document.getElementById("ask_the_audience_pop_up").style.display = "none"
 }
 
 //          ask the audience
 
 function ask_the_audience() {
-    alert("pitaj publiku")
     document.getElementById("lifeline-button-3").disabled = true
+    document.getElementById("ask_the_audience_pop_up").style.display = "block"
+
+    let rightAnswerPercentage = Math.random() * 0.25 + 0.5 // random number from range [0.5, 0.75]
+    let wrongAnswerPercentages = [Math.random() * (1 - rightAnswerPercentage)] // 3 more random numbers for wrong answers
+    wrongAnswerPercentages.push(Math.random() * (1 - rightAnswerPercentage - wrongAnswerPercentages[0]))
+    wrongAnswerPercentages.push(1 - rightAnswerPercentage - wrongAnswerPercentages[0] - wrongAnswerPercentages[1])
+
+    let percentageContainer = document.getElementById("percentages_container")
+
+    setTimeout(() => {
+        let buttons = document.querySelectorAll(".answer-button")
+        for (let i = 0; i < 4; i++) {
+            if (buttons[i].value === questions.results[currentQuestionNumber].correct_answer) {
+                console.log(buttons[i].id)
+                let newP = document.createElement("p")
+                newP.innerHTML = buttons[i].id.substring(7, 8) + ": " + Math.floor(rightAnswerPercentage * 100) + "%"
+                percentageContainer.appendChild(newP)
+            } else {
+                let newP = document.createElement("p")
+                newP.innerHTML = buttons[i].id.substring(7, 8) + ": " + Math.floor(wrongAnswerPercentages.pop() * 100) + "%"
+                percentageContainer.appendChild(newP)
+            }
+        }
+    }, 2000)
 }
 
 function enableLifelineButtons() {
