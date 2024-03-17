@@ -170,4 +170,12 @@ footer {
 #percentages_container {
     padding-left: 15%;
     padding-right: 15%;
+    padding-top: 15%;
+}
+
+.percentage-bar {
+    display: inline-block; 
+    background-color: steelblue; 
+    height: 0.6em;
+    border-radius: 5px;
 }

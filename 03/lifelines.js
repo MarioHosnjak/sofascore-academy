@@ -59,14 +59,14 @@ function ask_the_audience() {
         let buttons = document.querySelectorAll(".answer-button")
         for (let i = 0; i < 4; i++) {
             if (buttons[i].value === questions.results[currentQuestionNumber].correct_answer) {
-                console.log(buttons[i].id)
-                let newP = document.createElement("p")
-                newP.innerHTML = buttons[i].id.substring(7, 8) + ": " + Math.floor(rightAnswerPercentage * 100) + "%"
-                percentageContainer.appendChild(newP)
+                document.getElementById(`${buttons[i].id.substring(7, 8)}-percentage-span`).innerHTML =
+                    " " + Math.floor(rightAnswerPercentage * 100) + "%"
+                document.getElementById(`${buttons[i].id.substring(7, 8)}-percentage-bar`).style.width =
+                    Math.floor(rightAnswerPercentage * 100) * 2 + "px"
             } else {
-                let newP = document.createElement("p")
-                newP.innerHTML = buttons[i].id.substring(7, 8) + ": " + Math.floor(wrongAnswerPercentages.pop() * 100) + "%"
-                percentageContainer.appendChild(newP)
+                let wrongPercentage = wrongAnswerPercentages.pop()
+                document.getElementById(`${buttons[i].id.substring(7, 8)}-percentage-span`).innerHTML = " " + Math.floor(wrongPercentage * 100) + "%"
+                document.getElementById(`${buttons[i].id.substring(7, 8)}-percentage-bar`).style.width = Math.floor(wrongPercentage * 100) * 2 + "px"
             }
         }
     }, 2000)
