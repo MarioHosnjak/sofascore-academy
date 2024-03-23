@@ -40,6 +40,10 @@ function close_lifeline_popup() {
     document.getElementById("right_answer_p").innerHTML = ""
 
     document.getElementById("ask_the_audience_pop_up").style.display = "none"
+    let percentageBars = document.querySelectorAll(".percentage-bar")
+    percentageBars.forEach((p) => (p.style.width = "0px"))
+    let percentageSpans = document.querySelectorAll(".percentage-span")
+    percentageSpans.forEach((p) => (p.innerHTML = ""))
 }
 
 //          ask the audience
