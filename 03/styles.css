@@ -80,7 +80,14 @@ h2 {
 button {
     width: 45%;
     background-color: #AAB6A2;
+    cursor: pointer;
 }
+button:hover {
+    filter: brightness(120%);
+}
+/* button:hover {
+    background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
+} */
 
 
 /* LIFELINES */

@@ -53,8 +53,6 @@ function ask_the_audience() {
     wrongAnswerPercentages.push(Math.random() * (1 - rightAnswerPercentage - wrongAnswerPercentages[0]))
     wrongAnswerPercentages.push(1 - rightAnswerPercentage - wrongAnswerPercentages[0] - wrongAnswerPercentages[1])
 
-    let percentageContainer = document.getElementById("percentages_container")
-
     setTimeout(() => {
         let buttons = document.querySelectorAll(".answer-button")
         for (let i = 0; i < 4; i++) {
