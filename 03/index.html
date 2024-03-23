@@ -10,83 +10,85 @@
     <script src="lifelines.js"></script>
 </head>
 <body>
-    <header><h2>Who Wants to Be a Millionaire?</h2></header>
-    <div id="start-div" style="text-align: center;">
-        <form style="padding-top: 3em;">
-            <label for="difficulty">Select difficulty</label><br>
+    <div class="background">
+        <header><h2>Who Wants to Be a Millionaire?</h2></header>
+        <div id="start-div" style="text-align: center;">
+            <form style="margin-top: 3em;">
+                <label for="difficulty">Select difficulty</label><br>
 
-            <label for="any">Any</label>
-            <input type="radio" name="difficulty" id="any" value="any" onclick="updateDifficulty(this.value)" checked><br>
+                <label for="any">Any</label>
+                <input type="radio" name="difficulty" id="any" value="any" onclick="updateDifficulty(this.value)" checked><br>
 
-            <label for="easy">Easy</label>
-            <input type="radio" name="difficulty" id="easy" value="easy" onclick="updateDifficulty(this.value)"><br>
+                <label for="easy">Easy</label>
+                <input type="radio" name="difficulty" id="easy" value="easy" onclick="updateDifficulty(this.value)"><br>
 
-            <label for="medium">Medium</label>
-            <input type="radio" name="difficulty" id="medium" value="medium" onclick="updateDifficulty(this.value)"><br>
+                <label for="medium">Medium</label>
+                <input type="radio" name="difficulty" id="medium" value="medium" onclick="updateDifficulty(this.value)"><br>
 
-            <label for="hard">Hard</label>
-            <input type="radio" name="difficulty" id="hard" value="hard" onclick="updateDifficulty(this.value)"><br>
-        </form>
-        <button onclick="getQuestions(this.value)" id="start-button" value="any">Start</button>
-        <br>*napomena - u .js datoteci se može podesiti na koliko pitanja se mora odgovoriti do pobjede, da se ne treba odgovarati na svih 15
-        <br>*odgovori na pitanja su ispisani u konzoli
-    </div>
-    <div id="question-container" style="display: none;">
-        <div id="counter-div" style="display: none;">
-            <img src="Money_Tree_new.png">
-            <div id="questionPointer"></div>
+                <label for="hard">Hard</label>
+                <input type="radio" name="difficulty" id="hard" value="hard" onclick="updateDifficulty(this.value)"><br>
+            </form>
+            <button onclick="getQuestions(this.value)" id="start-button" value="any">Start</button>
+            <br><p style="margin: 0px;">*napomena - u .js datoteci se može podesiti na koliko pitanja se mora odgovoriti do pobjede, da se ne treba odgovarati na svih 15</p>
+            <p style="margin: 0px;">*odgovori na pitanja su ispisani u konzoli</p>
         </div>
-        <div id="question-div"><h3 id="question-h3"></h3></div>
-        <div id="buttons-div">
-            <div class="buttons-row-div">
-                <button class="answer-button" id="answer-A-button" onclick="validateAnswer(this.value, 'A')">A: </button>
-                <button class="answer-button" id="answer-B-button" onclick="validateAnswer(this.value, 'B')">B: </button>
+        <div id="question-container" style="display: none;">
+            <div id="counter-div" style="display: none;">
+                <img src="Money_Tree_new.png">
+                <div id="questionPointer"></div>
             </div>
-            <div class="buttons-row-div">
-                <button class="answer-button" id="answer-C-button" onclick="validateAnswer(this.value, 'C')">C: </button>
-                <button class="answer-button" id="answer-D-button" onclick="validateAnswer(this.value, 'D')">D: </button>
+            <div id="question-div"><h3 id="question-h3"></h3></div>
+            <div id="buttons-div">
+                <div class="buttons-row-div">
+                    <button class="answer-button" id="answer-A-button" onclick="validateAnswer(this.value, 'A')">A: </button>
+                    <button class="answer-button" id="answer-B-button" onclick="validateAnswer(this.value, 'B')">B: </button>
+                </div>
+                <div class="buttons-row-div">
+                    <button class="answer-button" id="answer-C-button" onclick="validateAnswer(this.value, 'C')">C: </button>
+                    <button class="answer-button" id="answer-D-button" onclick="validateAnswer(this.value, 'D')">D: </button>
+                </div>
             </div>
         </div>
+        <div id="phone_a_friend_pop_up" style="display: none;">
+            <p style="text-align: center;"><strong>Phone a friend</strong></p>
+            <div style="display: flex; justify-content: center; gap: 10px;">
+                <div class="dot dot1"></div>
+                <div class="dot dot2"></div>
+                <div class="dot dot3"></div>
+            </div>
+            <p id="right_answer_p"></p>
+            <button onclick="close_lifeline_popup()">Close</button>
+        </div>
+        <div id="ask_the_audience_pop_up" style="display: none;">
+            <p style="text-align: center;"><strong>Ask the audience</strong></p>
+            <div style="display: flex; justify-content: center; gap: 10px;">
+                <div class="dot dot1"></div>
+                <div class="dot dot2"></div>
+                <div class="dot dot3"></div>
+            </div>
+            <div id="percentages_container">
+                <div><span>A: </span><div class="percentage-bar" id="A-percentage-bar"></div><span id="A-percentage-span"></span></div>
+                <div><span>B: </span><div class="percentage-bar" id="B-percentage-bar"></div><span id="B-percentage-span"></span></div>
+                <div><span>C: </span><div class="percentage-bar" id="C-percentage-bar"></div><span id="C-percentage-span"></span></div>
+                <div><span>D: </span><div class="percentage-bar" id="D-percentage-bar"></div><span id="D-percentage-span"></span></div>
+            </div>
+            <button onclick="close_lifeline_popup()">Close</button>
+        </div>
+        <div id="you_won_pop_up" style="display: none;">
+            <div style="display: flex; flex-direction: column; justify-content: space-evenly; height: 250px; text-align: center;">
+                <h1>Congratulations!</h2>
+                <h3>You just won $1,000,000!</h3>
+            </div>
+            <button onclick="close_you_won_popup()">Close</button>
+        </div>
+        <footer style="display: none;">
+            <div id="lifeline-container">
+                <img style="height: 50px;" src="lifelines-cropped.png" alt="lifelines">
+                <button class="lifeline-button" id="lifeline-button-1" onclick="fifty_fifty(event)"></button>
+                <button class="lifeline-button" id="lifeline-button-2" onclick="phone_a_friend()"></button>
+                <button class="lifeline-button" id="lifeline-button-3" onclick="ask_the_audience()"></button>
+            </div>
+        </footer>
     </div>
-    <div id="phone_a_friend_pop_up" style="display: none;">
-        <p style="text-align: center;"><strong>Phone a friend</strong></p>
-        <div style="display: flex; justify-content: center; gap: 10px;">
-            <div class="dot dot1"></div>
-            <div class="dot dot2"></div>
-            <div class="dot dot3"></div>
-        </div>
-        <p id="right_answer_p"></p>
-        <button onclick="close_lifeline_popup()">Close</button>
-    </div>
-    <div id="ask_the_audience_pop_up" style="display: none;">
-        <p style="text-align: center;"><strong>Ask the audience</strong></p>
-        <div style="display: flex; justify-content: center; gap: 10px;">
-            <div class="dot dot1"></div>
-            <div class="dot dot2"></div>
-            <div class="dot dot3"></div>
-        </div>
-        <div id="percentages_container">
-            <div><span>A: </span><div class="percentage-bar" id="A-percentage-bar"></div><span id="A-percentage-span"></span></div>
-            <div><span>B: </span><div class="percentage-bar" id="B-percentage-bar"></div><span id="B-percentage-span"></span></div>
-            <div><span>C: </span><div class="percentage-bar" id="C-percentage-bar"></div><span id="C-percentage-span"></span></div>
-            <div><span>D: </span><div class="percentage-bar" id="D-percentage-bar"></div><span id="D-percentage-span"></span></div>
-        </div>
-        <button onclick="close_lifeline_popup()">Close</button>
-    </div>
-    <div id="you_won_pop_up" style="display: none;">
-        <div style="display: flex; flex-direction: column; justify-content: space-evenly; height: 250px; text-align: center;">
-            <h1>Congratulations!</h2>
-            <h3>You just won $1,000,000!</h3>
-        </div>
-        <button onclick="close_you_won_popup()">Close</button>
-    </div>
-    <footer style="display: none;">
-        <div id="lifeline-container">
-            <img style="height: 50px;" src="lifelines-cropped.png" alt="lifelines">
-            <button class="lifeline-button" id="lifeline-button-1" onclick="fifty_fifty(event)"></button>
-            <button class="lifeline-button" id="lifeline-button-2" onclick="phone_a_friend()"></button>
-            <button class="lifeline-button" id="lifeline-button-3" onclick="ask_the_audience()"></button>
-        </div>
-    </footer>
 </body>
 </html>
