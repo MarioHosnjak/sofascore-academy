@@ -148,7 +148,7 @@ footer {
     left: calc(50% - 150px);
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
-#phone_a_friend_pop_up button,  #you_won_pop_up, #ask_the_audience_pop_up button{
+#phone_a_friend_pop_up button,  #you_won_pop_up button, #ask_the_audience_pop_up button{
     background-color: steelblue;
     position: absolute;
     bottom: 10px;
