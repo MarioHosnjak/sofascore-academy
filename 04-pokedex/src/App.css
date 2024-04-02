@@ -1,0 +1,13 @@
+body {
+    height: 150vh;
+    margin: 0px;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    height: 85px;
+    width: 100vw;
+    background-color: #E3350D;
+    padding: 8px;
+}
