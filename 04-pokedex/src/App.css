@@ -6,8 +6,73 @@ body {
 .header {
     position: fixed;
     top: 0;
-    height: 85px;
-    width: 100vw;
+    height: 60px;
+    width: calc(100% - 90px);
     background-color: #E3350D;
-    padding: 8px;
+    padding-left: 45px;
+    padding-right: 45px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header a {
+    color: #EEEEEE;
+    font-family: Poppins;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 48px;
+    text-align: left;
+}
+
+.header-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.pokemon-details-div {
+    width: calc(100vw / 2 - 120px);
+    height: calc((100vh - 60px)/2);
+    background-color: #FFFFFF;
+    display: inline-block;
+
+    font-family: Poppins;
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.pokemon-details-div .pokemon-details-name {
+    font-size: 32px; 
+    font-weight: 700; 
+    line-height: 48px; 
+}
+
+.pokemon-details-div .pokemon-details-a {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 21px;
+}
+
+.pokemon-details-div .pokemon-details-a span {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+}
+
+.pokemon-picture-div {
+    width: calc(100vw / 2 - 120px);
+    height: calc((100vh - 60px)/2);
+    background-color: #EEEEEE;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    padding-left: 60px;
+    padding-right: 60px;
 }
