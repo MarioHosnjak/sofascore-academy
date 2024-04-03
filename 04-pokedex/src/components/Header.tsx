@@ -7,7 +7,7 @@ export const Header = () => {
 
     return (
         <>
-            <div style={{height: "60px", width: "100%"}}></div>
+            <div className='header-placeholder' style={{height: "60px", width: "100%"}}></div>
             <div className="header">
                 <img className='header-icon' src={heartIcon}></img>
                 <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
