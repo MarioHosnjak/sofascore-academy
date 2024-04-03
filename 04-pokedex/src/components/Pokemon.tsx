@@ -55,7 +55,7 @@ export const Pokemon = ({url}: {url:string}) => {
 
     return (
         <>
-            <div style={{display: "flex", flexDirection: pokemonInfo?.id && pokemonInfo.id % 2 == 0 ? "row" : "row-reverse"}}>
+            <div className="pokemon-row-div" style={{display: "flex", flexDirection: pokemonInfo?.id && pokemonInfo.id % 2 == 0 ? "row" : "row-reverse"}}>
                 <PokemonDetails pokemonInfo={pokemonInfo}/>
                 <PokemonPicture pictureUrl={pokemonInfo?.picture} pictureLocation={pokemonInfo?.id && pokemonInfo.id % 2 == 0 ? "flex-start" : "flex-end"}/>
             </div>

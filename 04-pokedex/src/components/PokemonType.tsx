@@ -20,7 +20,7 @@ export const PokemonType = ({pokemonType}: {pokemonType:string}) => {
 
     return (
         <>
-            <span style={{borderRadius: "9px", backgroundColor: colorDictionary[pokemonType], color: "white", width: "60px", display: "inline-block", marginRight: "10px", textAlign: "center"}}>{pokemonType}</span>
+            <span className="pokemon-type-span" style={{backgroundColor: colorDictionary[pokemonType], color: "white"}}>{pokemonType}</span>
         </>
     )
 }

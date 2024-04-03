@@ -31,7 +31,7 @@ export const PokemonDetails = ({pokemonInfo}: {pokemonInfo:pokemonDetails|undefi
                     <a className="pokemon-details-a">Type: <span>{pokemonInfo?.type.map((v)=>{return <PokemonType key={v} pokemonType={v} />})}</span></a>
                     <a className="pokemon-details-a">Details: <span>{pokemonInfo?.details}</span></a>
                 </div>
-                <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+                <div className="pokemon-fullview-div" style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
                     <a className="pokemon-details-a">Full view: </a>
                     <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
                         <img style={{height: "120px", width: "120px"}} src={pokemonInfo?.viewFront} alt="Front View"></img>
