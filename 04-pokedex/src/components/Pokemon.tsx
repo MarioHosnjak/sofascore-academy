@@ -39,9 +39,11 @@ export const Pokemon = ({url}: {url:string}) => {
                     picture: pokemonResponse.sprites.other['official-artwork'].front_default
                 }
                 const detailsResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${tmp.id}`)
-                const details = await detailsResponse.json()
-                // Pronalazi opis gdje je verzija "red" i jezik "en", replacea '\n' i '\f' u textu s razmakom
-                tmp.details = details.flavor_text_entries.filter(entry => entry.version.name === "red" && entry.language.name === "en")[0].flavor_text.replace(/[\n\f]/g, ' ')
+                if(detailsResponse.status === 200) {
+                    const details = await detailsResponse.json()
+                    // Pronalazi opis gdje je verzija "red" i jezik "en", replacea '\n' i '\f' u textu s razmakom
+                    tmp.details = details.flavor_text_entries.filter(entry => entry.language.name === "en" && entry.version.name === "red" || entry.language.name === "en")[0].flavor_text.replace(/[\n\f]/g, ' ')
+                }
                 setPokemonInfo(tmp)
                 console.log(tmp)
               }
