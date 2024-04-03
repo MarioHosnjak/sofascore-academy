@@ -1,3 +1,5 @@
+import { PokemonType } from "./PokemonType"
+
 interface pokemonDetails {
     id: number,
     name: string,
@@ -26,7 +28,7 @@ export const PokemonDetails = ({pokemonInfo}: {pokemonInfo:pokemonDetails|undefi
                     <a className="pokemon-details-a">Health points: <span>{pokemonInfo?.healthPoints} HP</span></a>
                     <a className="pokemon-details-a">Height: <span>{pokemonInfo?.height} cm</span></a>
                     <a className="pokemon-details-a">Weight: <span>{pokemonInfo?.weight} kg</span></a>
-                    <a className="pokemon-details-a">Type: <span>{pokemonInfo?.type.map((v)=>{return v + " "})}</span></a>
+                    <a className="pokemon-details-a">Type: <span>{pokemonInfo?.type.map((v)=>{return <PokemonType key={v} pokemonType={v} />})}</span></a>
                     <a className="pokemon-details-a">Details: <span>{pokemonInfo?.details}</span></a>
                 </div>
                 <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
