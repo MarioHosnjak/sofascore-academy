@@ -31,12 +31,19 @@ body {
     height: 50px;
 }
 
-.pokemon-details-div {
+.pokemon-details-container {
     width: calc(100vw / 2 - 120px);
     height: calc((100vh - 60px)/2);
     background-color: #FFFFFF;
-    display: inline-block;
 
+    padding-left: 60px;
+    padding-right: 60px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.pokemon-details-div {
     font-family: Poppins;
     text-align: left;
 
@@ -44,17 +51,17 @@ body {
     flex-direction: column;
     justify-content: center;
 
-    padding-left: 60px;
-    padding-right: 60px;
+    max-width: min-content;
 }
 
 .pokemon-details-div .pokemon-details-name {
     font-size: 32px; 
     font-weight: 700; 
     line-height: 48px; 
+    text-wrap: nowrap;
 }
 
-.pokemon-details-div .pokemon-details-a {
+.pokemon-details-div .pokemon-details-a, .pokemon-details-a {
     font-size: 14px;
     font-weight: 600;
     line-height: 21px;
