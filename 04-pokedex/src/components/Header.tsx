@@ -9,12 +9,12 @@ export const Header = () => {
         <>
             <div className='header-placeholder' style={{height: "60px", width: "100%"}}></div>
             <div className="header">
-                <img className='header-icon' src={heartIcon}></img>
+                <img className='header-icon' src={heartIcon} style={{cursor: "pointer"}}></img>
                 <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
                     <img className='header-icon' src={pokeball}></img>
                     <a className='header-text'>POKEDEX</a>
                 </div>
-                <img className='header-icon' src={settingsIcon}></img>
+                <img className='header-icon' src={settingsIcon} style={{cursor: "pointer"}}></img>
             </div>
         </>
     )
