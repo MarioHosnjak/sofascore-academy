@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
 import { Pokemon } from "./components/Pokemon"
+import { ThemeSelector } from "./components/ThemeSelector";
 
 function App() {
 
@@ -59,13 +60,15 @@ function App() {
   
 
   return (
-    <div id="app-container">
-      <Header/>
-      {pokemonArray?.map(v => {
-        return (
-        <Pokemon key={v.name} url={v.url}/>
-      )})}
-    </div>
+    <ThemeSelector>
+      <div id="app-container">
+        <Header/>
+        {pokemonArray?.map(v => {
+          return (
+          <Pokemon key={v.name} url={v.url}/>
+        )})}
+      </div>
+    </ThemeSelector>
   )
 }
 
