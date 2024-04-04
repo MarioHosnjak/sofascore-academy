@@ -154,5 +154,6 @@ body {
     .pokemon-details-container {
         width: auto;
         justify-content: space-around;
+        align-items: center;
     }
 }

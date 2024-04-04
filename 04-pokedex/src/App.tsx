@@ -10,7 +10,6 @@ function App() {
   }
 
   const [pokemonArray, setPokemonArray] = useState<PokemonInfo[] | undefined>([])
-
   const [fetchUrl, setFetchUrl] = useState('https://pokeapi.co/api/v2/pokemon')
   const [pokemonNumber, setPokemonNumber] = useState(20)
 
@@ -34,7 +33,7 @@ function App() {
 
   useEffect(() => {
     function isBottom(el: HTMLElement) {
-      return el.getBoundingClientRect().bottom <= window.innerHeight;
+      return el.getBoundingClientRect().bottom <= window.innerHeight + 10;
     }
 
     function trackScrolling() {
@@ -46,7 +45,7 @@ function App() {
         setTimeout(() => {
           setPokemonNumber((v) => v + 20)
           setFetchUrl(`https://pokeapi.co/api/v2/pokemon?offset=${pokemonNumber}&limit=20`)
-        }, 500)
+        }, 250)
         document.removeEventListener('scroll', trackScrolling);
       }
     }
