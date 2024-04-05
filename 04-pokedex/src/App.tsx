@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
 import { Pokemon } from "./components/Pokemon"
 import { ThemeSelector } from "./components/ThemeSelector";
+import ThemeContext from "./components/context/ThemeContext";
 
 function App() {
 
@@ -13,6 +14,8 @@ function App() {
   const [pokemonArray, setPokemonArray] = useState<PokemonInfo[] | undefined>([])
   const [fetchUrl, setFetchUrl] = useState('https://pokeapi.co/api/v2/pokemon')
   const [pokemonNumber, setPokemonNumber] = useState(20)
+
+  const [isDark, setIsDark] = useState<boolean>(window.matchMedia("(prefers-color-scheme: dark)").matches)
 
   useEffect(()=>{
       async function getPokemon() {
@@ -60,15 +63,17 @@ function App() {
   
 
   return (
-    <ThemeSelector>
-      <div id="app-container">
-        <Header/>
-        {pokemonArray?.map(v => {
-          return (
-          <Pokemon key={v.name} url={v.url}/>
-        )})}
-      </div>
-    </ThemeSelector>
+    <ThemeContext.Provider value={{ isDark, setIsDark }}>
+      <ThemeSelector>
+        <div id="app-container">
+          <Header/>
+          {pokemonArray?.map(v => {
+            return (
+            <Pokemon key={v.name} url={v.url}/>
+          )})}
+        </div>
+      </ThemeSelector>
+    </ThemeContext.Provider>
   )
 }
 

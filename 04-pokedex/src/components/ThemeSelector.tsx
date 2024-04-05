@@ -1,11 +1,13 @@
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, useContext } from 'react'
+import ThemeContext from './context/ThemeContext'
 
-export const ThemeSelector = (props: PropsWithChildren<{}>) => {
-  const [isDark, setIsDark] = useState(true)
+export const ThemeSelector = (props: PropsWithChildren<unknown>) => {
+
+  const {isDark} = useContext(ThemeContext)
+
 
   return (
-    <div className={isDark ? 'dark-theme' : 'light-theme'}>
-      <button style={{zIndex: 10, position: "absolute", top: "100px", left: "20px"}} onClick={() => setIsDark(v => !v)}>Set {isDark ? 'light' : 'dark'} theme</button>
+    <div className={isDark === true ? "dark-theme" : "light-theme"}>
       {props.children}
     </div>
   )
