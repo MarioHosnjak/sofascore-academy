@@ -1,0 +1,206 @@
+body {
+    min-height: calc(100vh - 16px);
+    background-color: steelblue;
+    margin: 0px;
+}
+
+.background {
+    background-image: url("./background-millionaire.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    height: 100vh;
+}
+
+header {
+    text-align: center;
+    height: 50px;
+}
+
+h2 {
+    margin: 0px;
+    padding: 10px;
+}
+
+#start-div {
+    height: calc(100vh - 66px);
+    padding-left: 20px;
+    padding-right: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#start-button {
+    height: 3em;
+    width: 12em;
+    margin: 3em;
+    font-size: large;
+    font-weight: bold;
+}
+
+#counter-div {
+    position: relative;
+    padding: 10px;
+}
+
+#questionPointer {
+    border: 2px solid green; 
+    height: 19px; 
+    position: absolute; 
+    width: calc(100% - 24px); 
+    top: 278.62px;
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+
+#question-container {
+    height: calc(100vh - 116px);
+    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#question-div {
+    width: 100%;
+    text-align: center;
+}
+
+#buttons-div {
+    width: 100%;
+    height: 30%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.buttons-row-div {
+    width: 80%;
+    height: 30%;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+button {
+    width: 45%;
+    background-color: #AAB6A2;
+    cursor: pointer;
+}
+button:hover {
+    filter: brightness(120%);
+}
+
+/* LIFELINES */
+footer {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0px;
+
+    width: 100%;
+}
+
+#lifeline-container {
+    position: relative;
+}
+
+.lifeline-button {
+    position: absolute;
+    width: 33%;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+}
+
+.lifeline-button:disabled {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#lifeline-button-1 {
+    left: 0%;
+}
+#lifeline-button-2 {
+    left: 33.33%;
+}
+#lifeline-button-3 {
+    left: 66.66%;
+}
+
+/* PHONE A FRIEND POP-UP    &&    YOU WON POP-UP*/
+#phone_a_friend_pop_up, #you_won_pop_up, #ask_the_audience_pop_up {
+    position: fixed;
+    height: 300px;
+    width: 300px;
+    background-color: #AAB6A2;
+    border: 2px solid black;
+    border-radius: 20px;
+    top: calc(50% - 150px);
+    left: calc(50% - 150px);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+}
+#phone_a_friend_pop_up button,  #you_won_pop_up button, #ask_the_audience_pop_up button{
+    background-color: steelblue;
+    position: absolute;
+    bottom: 10px;
+    left: calc(50% - 37.5px);
+    width: 75px;
+    height: 30px;
+    border-radius: 10px;
+}
+.dot {
+    background-color: black; 
+    height: 10px; 
+    width: 10px; 
+    border-radius: 5px; 
+    display: inline-block;
+}
+@keyframes blink {
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+.dot1 {
+    animation: blink 2s infinite;
+}
+.dot2 {
+    animation: blink 2s infinite 0.6s;
+}
+.dot3 {
+    animation: blink 2s infinite 1.2s;
+}
+#right_answer_p {
+    position: absolute; 
+    width: 90%; 
+    text-align: center; 
+    top: 45%;
+    padding: 0 5% 0 5%;
+}
+#percentages_container {
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-top: 15%;
+}
+
+.percentage-bar {
+    display: inline-block; 
+    background-color: steelblue; 
+    height: 0.6em;
+    border-radius: 5px;
+}
+
+h2, h3, p, form{
+    background-color: #AAB6A2;
+}
+
+form {
+    width: fit-content;
+}
