@@ -32,7 +32,7 @@ export const Pokemon = ({url}: {url:string}) => {
                     healthPoints: pokemonResponse.stats[0].base_stat,
                     height: pokemonResponse.height * 10,
                     weight: pokemonResponse.weight,
-                    type: pokemonResponse.types.map((v) => {return v.type.name}),
+                    type: pokemonResponse.types.map((v: { type: { name: string } }) => {return v.type.name}),
                     details: "",
                     viewFront: pokemonResponse.sprites.front_default,
                     viewBack: pokemonResponse.sprites.back_default,
@@ -41,11 +41,12 @@ export const Pokemon = ({url}: {url:string}) => {
                 const detailsResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${tmp.id}`)
                 if(detailsResponse.status === 200) {
                     const details = await detailsResponse.json()
-                    // Pronalazi opis gdje je verzija "red" i jezik "en", replacea '\n' i '\f' u textu s razmakom
-                    tmp.details = details.flavor_text_entries.filter(entry => entry.language.name === "en" && entry.version.name === "red" || entry.language.name === "en")[0].flavor_text.replace(/[\n\f]/g, ' ')
+                    // Pronalazi opis gdje je jezik "en", replacea '\n' i '\f' u textu s razmakom
+                    tmp.details = details.flavor_text_entries.filter(
+                        (entry: { language: { name: string }; version: { name: string }; flavor_text: string }) => entry.language.name === "en")[0]
+                        .flavor_text.replace(/[\n\f]/g, ' ')
                 }
                 setPokemonInfo(tmp)
-                console.log(tmp)
               }
             } catch (error) {
               console.error(error)

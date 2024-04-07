@@ -48,9 +48,18 @@ export const ThemeSelectorModal = (props: PropsWithChildren<unknown>) => {
                 {showModal && (
                     <div className="theme-modal-div" style={{ backgroundColor: isDark ? "#4D638C" : "#FFFFFF" }}>
                         <a style={{fontSize: "16px", fontWeight: "600", lineHeight: "24px"}}>Theme</a>
-                        <a onClick={() => chooseOption('auto')}><img style={{height: "6px", width: "6px", marginRight: "5px"}} src={selectedOption === 'auto' ? filledCircle : notFilledCircle} alt="auto-icon"></img>Auto</a>
-                        <a onClick={() => chooseOption('light')}><img style={{height: "6px", width: "6px", marginRight: "5px"}} src={selectedOption === 'light' ? filledCircle : notFilledCircle} alt="light-icon"></img>Light</a>
-                        <a onClick={() => chooseOption('dark')}><img style={{height: "6px", width: "6px", marginRight: "5px"}} src={selectedOption === 'dark' ? filledCircle : notFilledCircle} alt="dark-icon"></img>Dark</a>
+                        <a onClick={() => chooseOption('auto')}>
+                            <img style={{height: "6px", width: "6px", marginRight: "5px"}} src={selectedOption === 'auto' ? filledCircle : notFilledCircle} alt="auto-icon"></img>
+                            Auto
+                        </a>
+                        <a onClick={() => chooseOption('light')}>
+                            <img style={{height: "6px", width: "6px", marginRight: "5px"}} src={selectedOption === 'light' ? filledCircle : notFilledCircle} alt="light-icon"></img>
+                            Light
+                        </a>
+                        <a onClick={() => chooseOption('dark')}>
+                            <img style={{height: "6px", width: "6px", marginRight: "5px"}} src={selectedOption === 'dark' ? filledCircle : notFilledCircle} alt="dark-icon"></img>
+                            Dark
+                        </a>
                         <button style={{marginTop: "10px"}} onClick={closeModal}>
                             Close
                         </button>
