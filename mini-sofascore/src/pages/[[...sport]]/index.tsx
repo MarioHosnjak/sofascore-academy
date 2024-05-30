@@ -5,6 +5,8 @@ import Sport from '@/models/Sport'
 import Tournament from '@/models/Tournament'
 import { useEffect, useRef, useState } from 'react'
 import LeaguesWidget from '@/modules/leagues/LeaguesWidget'
+import useMediaQuery from '@/utils/useMediaQuery'
+import theme from '../../../kuma.config'
 
 interface SportProps {
   sport: {
@@ -33,6 +35,9 @@ const WidgetContainer = styled('div')`
 const Widget = styled('div')`
   width: calc((100vw - 2 * 4vw) / 3);
   height: auto;
+  @media screen and (max-width: t('breakpoints.md')) {
+    width: 90vw;
+  }
 `
 const WidgetPlaceholder = styled('div')`
   width: calc((100vw - 2 * 4vw) / 3);
@@ -40,9 +45,10 @@ const WidgetPlaceholder = styled('div')`
 `
 
 export default function SportPage(props: SportProps) {
-  console.log(props.tournaments[0])
   const [showEventWidget, setShowEventWidget] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState(undefined)
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints['breakpoints.md']})`)
+  console.log(isMobile)
 
   return (
     <FullscreenContainer>
@@ -50,12 +56,14 @@ export default function SportPage(props: SportProps) {
         <Header selectedSport={props.sport.slug} allSports={props.sports}></Header>
       </StickyHeader>
       <WidgetContainer>
-        <Widget>
-          <LeaguesWidget tournaments={props.tournaments}></LeaguesWidget>
-        </Widget>
+        {!isMobile && (
+          <Widget>
+            <LeaguesWidget tournaments={props.tournaments}></LeaguesWidget>
+          </Widget>
+        )}
         <Widget>Events</Widget>
-        {showEventWidget && <Widget>Event</Widget>}
-        {!showEventWidget && <WidgetPlaceholder></WidgetPlaceholder>}
+        {showEventWidget && !isMobile && <Widget>Event</Widget>}
+        {!showEventWidget && !isMobile && <WidgetPlaceholder></WidgetPlaceholder>}
       </WidgetContainer>
     </FullscreenContainer>
   )
