@@ -6,6 +6,9 @@ const nextConfig = {
   rewrites: async () => {
     return [{ source: '/api/:path*', destination: 'https://academy-backend.sofascore.dev/:path*' }]
   },
+  images: {
+    domains: ['academy-backend.sofascore.dev'],
+  },
 }
 
 export default withKumaUI(nextConfig)
