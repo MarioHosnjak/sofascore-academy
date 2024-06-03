@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import LeaguesWidget from '@/modules/leagues/LeaguesWidget'
 import useMediaQuery from '@/utils/useMediaQuery'
 import theme from '../../../kuma.config'
+import EventsWidget from '@/modules/events/EventsWidget'
 
 interface SportProps {
   sport: {
@@ -19,6 +20,7 @@ interface SportProps {
 const FullscreenContainer = styled('div')`
   background-color: var(--surface-s0);
   min-height: calc(100vh - 116px);
+  position: relative;
 `
 
 const StickyHeader = styled('div')`
@@ -28,7 +30,7 @@ const StickyHeader = styled('div')`
 const WidgetContainer = styled('div')`
   display: flex;
   justify-content: space-evenly;
-  width: 100vw;
+  width: 100%;
   margin-top: 6vh;
   margin-bottom: 6vh;
 `
@@ -48,20 +50,26 @@ export default function SportPage(props: SportProps) {
   const [showEventWidget, setShowEventWidget] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState(undefined)
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints['breakpoints.md']})`)
-  console.log(isMobile)
+  //console.log(isMobile)
 
   return (
     <FullscreenContainer>
+      {/* Header */}
       <StickyHeader>
         <Header selectedSport={props.sport.slug} allSports={props.sports}></Header>
       </StickyHeader>
       <WidgetContainer>
+        {/* Tournaments */}
         {!isMobile && (
           <Widget>
             <LeaguesWidget tournaments={props.tournaments}></LeaguesWidget>
           </Widget>
         )}
-        <Widget>Events</Widget>
+        {/* Events */}
+        <Widget>
+          <EventsWidget></EventsWidget>
+        </Widget>
+        {/* Selected event */}
         {showEventWidget && !isMobile && <Widget>Event</Widget>}
         {!showEventWidget && !isMobile && <WidgetPlaceholder></WidgetPlaceholder>}
       </WidgetContainer>
@@ -71,7 +79,7 @@ export default function SportPage(props: SportProps) {
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const { params, res } = context
-
+  const today = '2024-05-25'
   try {
     //@ts-ignore
     const { sport } = params || {}
@@ -81,11 +89,16 @@ export const getServerSideProps: GetServerSideProps = async context => {
       slug = 'football'
     }
 
+    console.log(slug)
+
     const sports = await (await fetch(`https://academy-backend.sofascore.dev/sports`)).json()
     console.log(sports)
 
     const tournaments = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/tournaments`)).json()
     console.log(tournaments)
+
+    const events = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/events/${today}`)).json()
+    console.log(events)
 
     const props: SportProps = { sport: { slug: slug }, sports, tournaments }
 
