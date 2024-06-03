@@ -1,13 +1,15 @@
 import Header from '@/modules/header/Header'
-import { Box, styled } from '@kuma-ui/core'
+import { Box, Button, styled } from '@kuma-ui/core'
 import { GetServerSideProps } from 'next'
 import Sport from '@/models/Sport'
 import Tournament from '@/models/Tournament'
+import GameEvent from '@/models/GameEvent'
 import { useEffect, useRef, useState } from 'react'
 import LeaguesWidget from '@/modules/leagues/LeaguesWidget'
 import useMediaQuery from '@/utils/useMediaQuery'
 import theme from '../../kuma.config'
 import EventsWidget from '@/modules/events/EventsWidget'
+import EventDetailsWidget from '@/modules/events/EventDetailsWidget'
 
 interface SportProps {
   sport: {
@@ -15,6 +17,7 @@ interface SportProps {
   }
   sports: Sport[]
   tournaments: Tournament[]
+  events: GameEvent[]
 }
 
 const FullscreenContainer = styled('div')`
@@ -26,13 +29,14 @@ const FullscreenContainer = styled('div')`
 const StickyHeader = styled('div')`
   position: sticky;
   top: 0;
+  z-index: 5;
 `
 const WidgetContainer = styled('div')`
   display: flex;
   justify-content: space-evenly;
   width: 100%;
-  margin-top: 6vh;
-  margin-bottom: 6vh;
+  padding-top: 6vh;
+  padding-bottom: 6vh;
 `
 const Widget = styled('div')`
   width: calc((100vw - 2 * 4vw) / 3);
@@ -48,9 +52,21 @@ const WidgetPlaceholder = styled('div')`
 
 export default function SportPage(props: SportProps) {
   const [showEventWidget, setShowEventWidget] = useState(false)
-  const [selectedEvent, setSelectedEvent] = useState(undefined)
+  const [selectedEvent, setSelectedEvent] = useState<undefined | GameEvent>(undefined)
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints['breakpoints.md']})`)
   //console.log(isMobile)
+
+  useEffect(() => {
+    if (selectedEvent != undefined) {
+      setShowEventWidget(true)
+    }
+    console.log(selectedEvent)
+  }, [selectedEvent])
+
+  const handleEventWidgetClose = () => {
+    setShowEventWidget(false)
+    setSelectedEvent(undefined)
+  }
 
   return (
     <FullscreenContainer>
@@ -67,10 +83,18 @@ export default function SportPage(props: SportProps) {
         )}
         {/* Events */}
         <Widget>
-          <EventsWidget></EventsWidget>
+          <EventsWidget
+            events={props.events}
+            setSelectedEvent={setSelectedEvent}
+            selectedEvent={selectedEvent}
+          ></EventsWidget>
         </Widget>
         {/* Selected event */}
-        {showEventWidget && !isMobile && <Widget>Event</Widget>}
+        {showEventWidget && !isMobile && (
+          <Widget>
+            <EventDetailsWidget selectedEvent={selectedEvent} handleClose={handleEventWidgetClose}></EventDetailsWidget>
+          </Widget>
+        )}
         {!showEventWidget && !isMobile && <WidgetPlaceholder></WidgetPlaceholder>}
       </WidgetContainer>
     </FullscreenContainer>
@@ -80,6 +104,7 @@ export default function SportPage(props: SportProps) {
 export const getServerSideProps: GetServerSideProps = async context => {
   const { params, res } = context
   const today = '2024-05-25'
+  //const today = new Date().toISOString().split('T')[0]
   try {
     console.log('INSIDE OUTER INDEX!')
     //@ts-ignore
@@ -90,6 +115,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       slug = 'football'
     }
 
+    console.log(today)
     console.log(slug)
 
     const sports = await (await fetch(`https://academy-backend.sofascore.dev/sports`)).json()
@@ -101,7 +127,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const events = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/events/${today}`)).json()
     //console.log(events)
 
-    const props: SportProps = { sport: { slug: slug }, sports, tournaments }
+    const props: SportProps = { sport: { slug: slug }, sports, tournaments, events }
 
     return {
       props: props,

@@ -79,7 +79,8 @@ export default function SportPage(props: SportProps) {
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const { params, res } = context
-  const today = '2024-05-25'
+  //const today = '2024-05-25'
+  const today = new Date().toISOString().split('T')[0]
   try {
     console.log('INSIDE INNER INDEX!')
     //@ts-ignore
