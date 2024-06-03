@@ -6,7 +6,7 @@ import Tournament from '@/models/Tournament'
 import { useEffect, useRef, useState } from 'react'
 import LeaguesWidget from '@/modules/leagues/LeaguesWidget'
 import useMediaQuery from '@/utils/useMediaQuery'
-import theme from '../../../kuma.config'
+import theme from '../../kuma.config'
 import EventsWidget from '@/modules/events/EventsWidget'
 
 interface SportProps {
@@ -81,6 +81,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const { params, res } = context
   const today = '2024-05-25'
   try {
+    console.log('INSIDE OUTER INDEX!')
     //@ts-ignore
     const { sport } = params || {}
     let slug = Array.isArray(sport) ? sport[0] : sport || ''
@@ -92,13 +93,13 @@ export const getServerSideProps: GetServerSideProps = async context => {
     console.log(slug)
 
     const sports = await (await fetch(`https://academy-backend.sofascore.dev/sports`)).json()
-    console.log(sports)
+    //console.log(sports)
 
     const tournaments = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/tournaments`)).json()
-    console.log(tournaments)
+    //console.log(tournaments)
 
     const events = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/events/${today}`)).json()
-    console.log(events)
+    //console.log(events)
 
     const props: SportProps = { sport: { slug: slug }, sports, tournaments }
 
