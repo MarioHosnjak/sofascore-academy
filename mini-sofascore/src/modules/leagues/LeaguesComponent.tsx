@@ -1,6 +1,7 @@
 import Tournament from '@/models/Tournament'
 import { Box, styled } from '@kuma-ui/core'
-import Image from 'next/image'
+//import Image from 'next/image'
+import { Image } from '@kuma-ui/core'
 
 const ComponentBox = styled.div`
   height: 5.5em;

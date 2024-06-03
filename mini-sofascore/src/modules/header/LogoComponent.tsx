@@ -1,12 +1,6 @@
 import { Box, Spacer, css, styled } from '@kuma-ui/core'
-import logoWhite from '@/assets/sofascore_lockup_white.svg'
-import logoBlack from '@/assets/sofascore_lockup_black.svg'
-import settingsWhite from '@/assets/ic_settings_white.svg'
-import settingsBlack from '@/assets/ic_settings_black.svg'
-import trophyWhite from '@/assets/trophy_icon_white.svg'
-import trophyBlack from '@/assets/trophy_icon_black.svg'
 import { useThemeContext } from '@/context/ThemeContext'
-import Image from 'next/image'
+import { Image } from '@kuma-ui/core'
 import { relative } from 'path'
 
 const StyledBox = styled('div')`
@@ -36,7 +30,7 @@ export default function LogoComponent() {
   return (
     <Box>
       <StyledBox>
-        <Image src={isDark ? logoBlack : logoWhite} alt="sofascore logo"></Image>
+        <Image src={`/sofascore_lockup_${isDark ? 'black' : 'white'}.svg`} alt="sofascore logo" />
         <ButtonContainer>
           <Image
             className={css`
@@ -44,11 +38,11 @@ export default function LogoComponent() {
                 display: none;
               }
             `}
-            src={isDark ? trophyBlack : trophyWhite}
+            src={`/trophy_icon_${isDark ? 'black' : 'white'}.svg`}
             alt="trophy icon"
           ></Image>
           <Spacer size={'24px'} horizontal />
-          <Image src={isDark ? settingsBlack : settingsWhite} alt="settings icon"></Image>
+          <Image src={`/ic_settings_${isDark ? 'black' : 'white'}.svg`} alt="settings icon"></Image>
         </ButtonContainer>
       </StyledBox>
     </Box>

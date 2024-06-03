@@ -46,7 +46,7 @@ export default function LeaguesWidget({ tournaments }: { tournaments: Tournament
     <LeaguesContainer>
       <StyledH2>Leagues</StyledH2>
       {shownTournaments.map(tournament => (
-        <LeagueComponent tournament={tournament}></LeagueComponent>
+        <LeagueComponent key={tournament.id} tournament={tournament}></LeagueComponent>
       ))}
       {shownTournaments.length < tournaments.length && (
         <ViewMoreButtonContainer>

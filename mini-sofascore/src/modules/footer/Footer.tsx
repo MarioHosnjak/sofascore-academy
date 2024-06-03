@@ -1,7 +1,7 @@
 import { Box, VStack, styled } from '@kuma-ui/core'
 import logoWhite from '../../assets/sofascore_lockup_white.svg'
 import logoBlack from '../../assets/sofascore_lockup_black.svg'
-import Image from 'next/image'
+import { Image } from '@kuma-ui/core'
 import { useThemeContext } from '@/context/ThemeContext'
 
 export const FooterBox = styled.div`
@@ -18,7 +18,7 @@ export default function Footer() {
     <FooterBox>
       <VStack height={'100%'} justify={'space-around'} alignItems={'center'}>
         <Box>
-          <Image src={isDark ? logoWhite : logoBlack} alt="sofascore logo" priority />
+          <Image src={`/sofascore_lockup_${isDark ? 'white' : 'black'}.svg`} alt="sofascore logo" />
         </Box>
         <Box color={'colors.onSurface.nLv2'}>© 2024 Sofascore – All Rights Reserved.</Box>
       </VStack>
