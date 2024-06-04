@@ -10,6 +10,11 @@ import useMediaQuery from '@/utils/useMediaQuery'
 import theme from '../../kuma.config'
 import EventsWidget from '@/modules/events/EventsWidget'
 import EventDetailsWidget from '@/modules/events/EventDetailsWidget'
+import FullscreenContainer from '@/modules/Common/FullscreenContainer'
+import StickyHeader from '@/modules/Common/StickyHeader'
+import WidgetContainer from '@/modules/Common/WidgetContainer'
+import Widget from '@/modules/Common/Widget'
+import WidgetPlaceholder from '@/modules/Common/WidgetPlaceholder'
 
 interface SportProps {
   sport: {
@@ -19,36 +24,6 @@ interface SportProps {
   tournaments: Tournament[]
   events: GameEvent[]
 }
-
-const FullscreenContainer = styled('div')`
-  background-color: var(--surface-s0);
-  min-height: calc(100vh - 116px);
-  position: relative;
-`
-
-const StickyHeader = styled('div')`
-  position: sticky;
-  top: 0;
-  z-index: 5;
-`
-const WidgetContainer = styled('div')`
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-  padding-top: 6vh;
-  padding-bottom: 6vh;
-`
-const Widget = styled('div')`
-  width: calc((100vw - 2 * 4vw) / 3);
-  height: auto;
-  @media screen and (max-width: t('breakpoints.md')) {
-    width: 90vw;
-  }
-`
-const WidgetPlaceholder = styled('div')`
-  width: calc((100vw - 2 * 4vw) / 3);
-  height: auto;
-`
 
 export default function SportPage(props: SportProps) {
   const [showEventWidget, setShowEventWidget] = useState(false)
@@ -120,6 +95,8 @@ export default function SportPage(props: SportProps) {
 export const getServerSideProps: GetServerSideProps = async context => {
   const { params, res } = context
   const today = '2024-05-25'
+  //const today = '2024-06-08'
+
   //const today = new Date().toISOString().split('T')[0]
   try {
     console.log('INSIDE OUTER INDEX!')

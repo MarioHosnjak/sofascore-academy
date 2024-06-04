@@ -8,39 +8,11 @@ import useMediaQuery from '@/utils/useMediaQuery'
 import { Box, styled } from '@kuma-ui/core'
 import { GetServerSideProps } from 'next'
 import theme from '../../../../kuma.config'
-
-const FullscreenContainer = styled('div')`
-  background-color: var(--surface-s0);
-  min-height: calc(100vh - 116px);
-  position: relative;
-`
-
-const StickyHeader = styled('div')`
-  position: sticky;
-  top: 0;
-  z-index: 5;
-`
-
-const WidgetContainer = styled('div')`
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-  padding-top: 6vh;
-  padding-bottom: 6vh;
-`
-
-const Widget = styled('div')`
-  width: calc((100vw - 2 * 4vw) / 3);
-  height: auto;
-  @media screen and (max-width: t('breakpoints.md')) {
-    width: 90vw;
-  }
-`
-
-const WidgetPlaceholder = styled('div')`
-  width: calc((100vw - 2 * 4vw) / 3);
-  height: auto;
-`
+import StickyHeader from '@/modules/Common/StickyHeader'
+import WidgetContainer from '@/modules/Common/WidgetContainer'
+import Widget from '@/modules/Common/Widget'
+import FullscreenContainer from '@/modules/Common/FullscreenContainer'
+import WidgetPlaceholder from '@/modules/Common/WidgetPlaceholder'
 
 interface EventProps {
   event: GameEvent
