@@ -1,7 +1,7 @@
 import Tournament from '@/models/Tournament'
 import { Box, styled } from '@kuma-ui/core'
-//import Image from 'next/image'
 import { Image } from '@kuma-ui/core'
+import { useRouter } from 'next/router'
 
 const ComponentBox = styled.div`
   height: 5.5em;
@@ -18,8 +18,14 @@ const StyledH3 = styled.h3`
 `
 
 export default function LeagueComponent({ tournament }: { tournament: Tournament }) {
+  const router = useRouter()
+
+  const handleClick = (tournamentId: number) => {
+    router.push('/' + tournament.sport.slug + '/tournament/' + tournamentId)
+  }
+
   return (
-    <ComponentBox>
+    <ComponentBox style={{ cursor: 'pointer' }} onClick={() => handleClick(tournament.id)}>
       <Image
         width={40}
         height={40}
