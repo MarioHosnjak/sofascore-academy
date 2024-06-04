@@ -8,10 +8,18 @@ interface SportProps {
   slug: string
 }
 
-export default function Header({ selectedSport, allSports }: { selectedSport: string; allSports: SportProps[] }) {
+export default function Header({
+  selectedSport,
+  allSports,
+  setShowTournaments,
+}: {
+  selectedSport: string
+  allSports: SportProps[]
+  setShowTournaments: any
+}) {
   return (
     <>
-      <LogoComponent></LogoComponent>
+      <LogoComponent setShowTournaments={setShowTournaments}></LogoComponent>
       <ButtonsComponent selectedSport={selectedSport} allSports={allSports}></ButtonsComponent>
     </>
   )

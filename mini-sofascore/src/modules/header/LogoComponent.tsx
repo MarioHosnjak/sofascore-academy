@@ -24,7 +24,7 @@ const ButtonContainer = styled.div`
   padding: t('spacings.lg');
 `
 
-export default function LogoComponent() {
+export default function LogoComponent({ setShowTournaments }: { setShowTournaments: any }) {
   const { isDark } = useThemeContext()
 
   return (
@@ -34,15 +34,21 @@ export default function LogoComponent() {
         <ButtonContainer>
           <Image
             className={css`
+              cursor: pointer;
               @media screen and (min-width: t('breakpoints.md')) {
                 display: none;
               }
             `}
             src={`/trophy_icon_${isDark ? 'black' : 'white'}.svg`}
             alt="trophy icon"
+            onClick={() => setShowTournaments((prevState: boolean) => !prevState)}
           ></Image>
           <Spacer size={'24px'} horizontal />
-          <Image src={`/ic_settings_${isDark ? 'black' : 'white'}.svg`} alt="settings icon"></Image>
+          <Image
+            style={{ cursor: 'pointer' }}
+            src={`/ic_settings_${isDark ? 'black' : 'white'}.svg`}
+            alt="settings icon"
+          ></Image>
         </ButtonContainer>
       </StyledBox>
     </Box>

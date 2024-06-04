@@ -54,6 +54,7 @@ export default function SportPage(props: SportProps) {
   const [showEventWidget, setShowEventWidget] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState<undefined | GameEvent>(undefined)
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints['breakpoints.md']})`)
+  const [showTournaments, setShowTournaments] = useState(false)
   //console.log(isMobile)
 
   useEffect(() => {
@@ -72,7 +73,11 @@ export default function SportPage(props: SportProps) {
     <FullscreenContainer>
       {/* Header */}
       <StickyHeader>
-        <Header selectedSport={props.sport.slug} allSports={props.sports}></Header>
+        <Header
+          selectedSport={props.sport.slug}
+          allSports={props.sports}
+          setShowTournaments={setShowTournaments}
+        ></Header>
       </StickyHeader>
       <WidgetContainer>
         {/* Tournaments */}
@@ -81,14 +86,21 @@ export default function SportPage(props: SportProps) {
             <LeaguesWidget tournaments={props.tournaments}></LeaguesWidget>
           </Widget>
         )}
+        {isMobile && showTournaments && (
+          <Widget>
+            <LeaguesWidget tournaments={props.tournaments}></LeaguesWidget>
+          </Widget>
+        )}
         {/* Events */}
-        <Widget>
-          <EventsWidget
-            events={props.events}
-            setSelectedEvent={setSelectedEvent}
-            selectedEvent={selectedEvent}
-          ></EventsWidget>
-        </Widget>
+        {(!showTournaments || !isMobile) && (
+          <Widget>
+            <EventsWidget
+              events={props.events}
+              setSelectedEvent={setSelectedEvent}
+              selectedEvent={selectedEvent}
+            ></EventsWidget>
+          </Widget>
+        )}
         {/* Selected event */}
         {showEventWidget && !isMobile && (
           <Widget>
@@ -119,13 +131,10 @@ export const getServerSideProps: GetServerSideProps = async context => {
     console.log(slug)
 
     const sports = await (await fetch(`https://academy-backend.sofascore.dev/sports`)).json()
-    //console.log(sports)
 
     const tournaments = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/tournaments`)).json()
-    //console.log(tournaments)
 
     const events = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/events/${today}`)).json()
-    //console.log(events)
 
     const props: SportProps = { sport: { slug: slug }, sports, tournaments, events }
 
