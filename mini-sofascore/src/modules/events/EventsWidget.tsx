@@ -1,7 +1,9 @@
 import { Box, styled } from '@kuma-ui/core'
 import GameEvent from '@/models/GameEvent'
 import EventComponent from './EventComponent'
-import { useState } from 'react'
+import useMediaQuery from '@/utils/useMediaQuery'
+import theme from '../../../kuma.config'
+import { useRouter } from 'next/router'
 
 const EventsContainer = styled('div')`
   padding-top: 20px;
@@ -19,6 +21,17 @@ export default function EventsWidget({
   setSelectedEvent: (value: undefined | GameEvent) => void
   selectedEvent: GameEvent | undefined
 }) {
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints['breakpoints.md']})`)
+  const router = useRouter()
+
+  const handleComponentClick = (event: GameEvent) => {
+    if (!isMobile) {
+      setSelectedEvent(event)
+    } else {
+      router.push('/' + event.tournament.sport.slug + '/event/' + event.id)
+    }
+  }
+
   return (
     <EventsContainer>
       <p style={{ marginBottom: '15px', paddingLeft: '20px' }}>Events Widget</p>
@@ -26,7 +39,7 @@ export default function EventsWidget({
         <Box
           key={event.id}
           onClick={() => {
-            setSelectedEvent(event)
+            handleComponentClick(event)
           }}
         >
           <EventComponent event={event} isSelected={event == selectedEvent}></EventComponent>

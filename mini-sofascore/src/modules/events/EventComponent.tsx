@@ -46,15 +46,21 @@ export default function EventComponent({ event, isSelected }: { event: GameEvent
     <EventContainer style={{ backgroundColor: isSelected ? 'var(--primary-highlight)' : 'transparent' }}>
       <TimeStatus>
         <Box>{event.startDate.toString().split('T')[1].split('+')[0].substring(0, 5)}</Box>
-        <Box>{event.status == 'finished' ? 'FT' : event.status == 'notstarted' ? '-' : 'In progress'}</Box>
+        <Box color={event.status == 'playing' ? 'red' : ''}>
+          {event.status == 'finished' ? 'FT' : event.status == 'notstarted' ? '-' : 'Playing'}
+        </Box>
       </TimeStatus>
       <Teams>
         <Box>{event.homeTeam.name}</Box>
         <Box>{event.awayTeam.name}</Box>
       </Teams>
       <Result>
-        <Box>{event.homeScore.total}</Box>
-        <Box>{event.awayScore.total}</Box>
+        <Box color={event.status == 'playing' ? 'red' : ''}>
+          {event.status == 'finished' || event.status == 'playing' ? event.homeScore.total : ''}
+        </Box>
+        <Box color={event.status == 'playing' ? 'red' : ''}>
+          {event.status == 'finished' || event.status == 'playing' ? event.awayScore.total : ''}
+        </Box>
       </Result>
     </EventContainer>
   )
