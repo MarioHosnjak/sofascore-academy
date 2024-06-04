@@ -57,7 +57,7 @@ export default function EventPage(props: EventProps) {
     <FullscreenContainer>
       {/* Header */}
       <StickyHeader>
-        <Header selectedSport={props.sport.slug} allSports={props.sports}></Header>
+        <Header selectedSport={props.sport.slug} allSports={props.sports} handleTrophyClick={() => {}}></Header>
       </StickyHeader>
       <WidgetContainer>
         {!isMobile && (

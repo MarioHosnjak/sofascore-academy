@@ -69,6 +69,10 @@ export default function SportPage(props: SportProps) {
     setSelectedEvent(undefined)
   }
 
+  const handleTrophyClick = () => {
+    setShowTournaments(v => !v)
+  }
+
   return (
     <FullscreenContainer>
       {/* Header */}
@@ -76,7 +80,7 @@ export default function SportPage(props: SportProps) {
         <Header
           selectedSport={props.sport.slug}
           allSports={props.sports}
-          setShowTournaments={setShowTournaments}
+          handleTrophyClick={handleTrophyClick}
         ></Header>
       </StickyHeader>
       <WidgetContainer>

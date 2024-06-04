@@ -11,15 +11,15 @@ interface SportProps {
 export default function Header({
   selectedSport,
   allSports,
-  setShowTournaments,
+  handleTrophyClick,
 }: {
   selectedSport: string
   allSports: SportProps[]
-  setShowTournaments: any
+  handleTrophyClick: any
 }) {
   return (
     <>
-      <LogoComponent setShowTournaments={setShowTournaments}></LogoComponent>
+      <LogoComponent handleTrophyClick={handleTrophyClick}></LogoComponent>
       <ButtonsComponent selectedSport={selectedSport} allSports={allSports}></ButtonsComponent>
     </>
   )

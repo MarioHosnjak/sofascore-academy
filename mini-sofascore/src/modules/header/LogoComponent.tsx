@@ -24,7 +24,7 @@ const ButtonContainer = styled.div`
   padding: t('spacings.lg');
 `
 
-export default function LogoComponent({ setShowTournaments }: { setShowTournaments: any }) {
+export default function LogoComponent({ handleTrophyClick }: { handleTrophyClick: any }) {
   const { isDark } = useThemeContext()
 
   return (
@@ -41,7 +41,7 @@ export default function LogoComponent({ setShowTournaments }: { setShowTournamen
             `}
             src={`/trophy_icon_${isDark ? 'black' : 'white'}.svg`}
             alt="trophy icon"
-            onClick={() => setShowTournaments((prevState: boolean) => !prevState)}
+            onClick={handleTrophyClick}
           ></Image>
           <Spacer size={'24px'} horizontal />
           <Image
