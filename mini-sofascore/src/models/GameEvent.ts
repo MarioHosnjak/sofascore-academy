@@ -1,4 +1,5 @@
 import Country from "./Country"
+import Incident from "./Incident"
 import Tournament from "./Tournament"
 
 export default interface GameEvent {
@@ -34,5 +35,6 @@ export default interface GameEvent {
         overtime: number
     },
     winnerCode: "home" | "away" | "draw",
-    round: number
+    round: number,
+    incidents: Incident[]
 }

@@ -4,6 +4,8 @@ import { Box, Button, VStack, styled, Image, HStack, Spacer } from '@kuma-ui/cor
 import { formatDate } from '@/utils/formatDate'
 import { urlContainsString } from '@/utils/urlContainsString'
 import { useEffect, useRef, useState } from 'react'
+import Incident from '@/models/Incident'
+import useSWR from 'swr'
 
 const EventsDetailsContainer = styled('div')`
   padding-top: 20px;
@@ -37,6 +39,7 @@ export default function EventDetailsWidget({
 }) {
   const { isDark } = useThemeContext()
   const [isEventPage, setIsEventPage] = useState(false)
+  const [eventIncidents, setEventIncidents] = useState<Incident[] | undefined>(undefined)
 
   useEffect(() => {
     setIsEventPage(urlContainsString('event'))

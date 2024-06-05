@@ -117,6 +117,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const events = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/events/${today}`)).json()
 
+    //events.map((game: GameEvent) => {})
+
     const props: SportProps = { sport: { slug: slug }, sports, tournaments, events }
 
     return {
