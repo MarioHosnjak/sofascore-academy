@@ -6,6 +6,8 @@ import { urlContainsString } from '@/utils/urlContainsString'
 import { useEffect, useRef, useState } from 'react'
 import Incident from '@/models/Incident'
 import useSWR from 'swr'
+import IncidentComponent from './IncidentComponent'
+import { useRouter } from 'next/router'
 
 const EventsDetailsContainer = styled('div')`
   padding-top: 20px;
@@ -30,6 +32,24 @@ const ResultContainer = styled.div`
   height: 120px;
 `
 
+const NoResultsYetBox = styled.div`
+  background-color: var(--surface-s0);
+  border-radius: 10px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const ViewTournamentButton = styled.div`
+  border: 1px solid var(--primary-default);
+  color: var(--primary-default);
+  cursor: pointer;
+  padding: 10px;
+  width: fit-content;
+  height: fit-content;
+`
+
 export default function EventDetailsWidget({
   selectedEvent,
   handleClose,
@@ -39,7 +59,12 @@ export default function EventDetailsWidget({
 }) {
   const { isDark } = useThemeContext()
   const [isEventPage, setIsEventPage] = useState(false)
-  const [eventIncidents, setEventIncidents] = useState<Incident[] | undefined>(undefined)
+  const router = useRouter()
+
+  const { data, error, isLoading } = useSWR<Incident[]>(`/api/event/${selectedEvent?.id}/incidents`, {
+    fallbackData: undefined,
+  })
+  console.log(data)
 
   useEffect(() => {
     setIsEventPage(urlContainsString('event'))
@@ -104,7 +129,32 @@ export default function EventDetailsWidget({
           <Box textAlign={'center'}>{selectedEvent?.awayTeam.name}</Box>
         </VStack>
       </ResultContainer>
-      <Box textAlign={'center'}>Incidents?</Box>
+      <hr style={{ width: '100%', borderColor: 'var(--secondary-highlight)' }}></hr>
+      <Spacer size={'10px'}></Spacer>
+      <Box textAlign={'center'}>
+        {isLoading && 'Incidents loading...'}
+        {error && 'Error occured while fetching data.'}
+        {data?.length == 0 && (
+          <>
+            <NoResultsYetBox>No results yet.</NoResultsYetBox>
+            <Spacer size={16}></Spacer>
+            <HStack width={'100%'} justifyContent={'center'}>
+              <ViewTournamentButton
+                onClick={() =>
+                  router.push(`/${selectedEvent?.tournament.sport.slug}/tournament/${selectedEvent?.tournament.id}`)
+                }
+              >
+                View Tournament Details
+              </ViewTournamentButton>
+            </HStack>
+            <Spacer size={16}></Spacer>
+          </>
+        )}
+      </Box>
+      {data &&
+        data.toReversed().map(incident => {
+          return <IncidentComponent key={incident.id} incident={incident}></IncidentComponent>
+        })}
     </EventsDetailsContainer>
   )
 }
