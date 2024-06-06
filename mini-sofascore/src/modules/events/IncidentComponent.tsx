@@ -25,7 +25,9 @@ const IncidentElement = styled.div`
 
 export default function IncidentComponent({ incident }: { incident: Incident }) {
   return (
-    <IncidentBox style={{ flexDirection: incident.teamSide == 'home' ? 'row' : 'row-reverse' }}>
+    <IncidentBox
+      style={{ flexDirection: incident.teamSide == 'home' || incident.scoringTeam == 'home' ? 'row' : 'row-reverse' }}
+    >
       {incident.type == 'card' && (
         <>
           {incident.color == 'yellowred' && (
