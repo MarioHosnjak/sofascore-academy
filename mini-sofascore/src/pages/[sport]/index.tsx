@@ -1,13 +1,20 @@
 import Header from '@/modules/header/Header'
-import { Box, styled } from '@kuma-ui/core'
+import { Box, Button, styled } from '@kuma-ui/core'
 import { GetServerSideProps } from 'next'
 import Sport from '@/models/Sport'
 import Tournament from '@/models/Tournament'
+import GameEvent from '@/models/GameEvent'
 import { useEffect, useRef, useState } from 'react'
 import LeaguesWidget from '@/modules/leagues/LeaguesWidget'
 import useMediaQuery from '@/utils/useMediaQuery'
 import theme from '../../../kuma.config'
 import EventsWidget from '@/modules/events/EventsWidget'
+import EventDetailsWidget from '@/modules/events/EventDetailsWidget'
+import FullscreenContainer from '@/modules/Common/FullscreenContainer'
+import StickyHeader from '@/modules/Common/StickyHeader'
+import WidgetContainer from '@/modules/Common/WidgetContainer'
+import Widget from '@/modules/Common/Widget'
+import WidgetPlaceholder from '@/modules/Common/WidgetPlaceholder'
 
 interface SportProps {
   sport: {
@@ -15,48 +22,41 @@ interface SportProps {
   }
   sports: Sport[]
   tournaments: Tournament[]
+  events: GameEvent[]
 }
-
-const FullscreenContainer = styled('div')`
-  background-color: var(--surface-s0);
-  min-height: calc(100vh - 116px);
-  position: relative;
-`
-
-const StickyHeader = styled('div')`
-  position: sticky;
-  top: 0;
-`
-const WidgetContainer = styled('div')`
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-  margin-top: 6vh;
-  margin-bottom: 6vh;
-`
-const Widget = styled('div')`
-  width: calc((100vw - 2 * 4vw) / 3);
-  height: auto;
-  @media screen and (max-width: t('breakpoints.md')) {
-    width: 90vw;
-  }
-`
-const WidgetPlaceholder = styled('div')`
-  width: calc((100vw - 2 * 4vw) / 3);
-  height: auto;
-`
 
 export default function SportPage(props: SportProps) {
   const [showEventWidget, setShowEventWidget] = useState(false)
-  const [selectedEvent, setSelectedEvent] = useState(undefined)
+  const [selectedEvent, setSelectedEvent] = useState<undefined | GameEvent>(undefined)
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints['breakpoints.md']})`)
+  const [showTournaments, setShowTournaments] = useState(false)
   //console.log(isMobile)
+
+  useEffect(() => {
+    if (selectedEvent != undefined) {
+      setShowEventWidget(true)
+    }
+    console.log(selectedEvent)
+  }, [selectedEvent])
+
+  const handleEventWidgetClose = () => {
+    setShowEventWidget(false)
+    setSelectedEvent(undefined)
+  }
+
+  const handleTrophyClick = () => {
+    setShowTournaments(v => !v)
+  }
 
   return (
     <FullscreenContainer>
       {/* Header */}
       <StickyHeader>
-        <Header selectedSport={props.sport.slug} allSports={props.sports}></Header>
+        <Header
+          selectedSport={props.sport.slug}
+          allSports={props.sports}
+          handleTrophyClick={handleTrophyClick}
+        ></Header>
       </StickyHeader>
       <WidgetContainer>
         {/* Tournaments */}
@@ -65,12 +65,27 @@ export default function SportPage(props: SportProps) {
             <LeaguesWidget tournaments={props.tournaments}></LeaguesWidget>
           </Widget>
         )}
+        {isMobile && showTournaments && (
+          <Widget>
+            <LeaguesWidget tournaments={props.tournaments}></LeaguesWidget>
+          </Widget>
+        )}
         {/* Events */}
-        <Widget>
-          <EventsWidget></EventsWidget>
-        </Widget>
+        {(!showTournaments || !isMobile) && (
+          <Widget>
+            <EventsWidget
+              events={props.events}
+              setSelectedEvent={setSelectedEvent}
+              selectedEvent={selectedEvent}
+            ></EventsWidget>
+          </Widget>
+        )}
         {/* Selected event */}
-        {showEventWidget && !isMobile && <Widget>Event</Widget>}
+        {showEventWidget && !isMobile && (
+          <Widget>
+            <EventDetailsWidget selectedEvent={selectedEvent} handleClose={handleEventWidgetClose}></EventDetailsWidget>
+          </Widget>
+        )}
         {!showEventWidget && !isMobile && <WidgetPlaceholder></WidgetPlaceholder>}
       </WidgetContainer>
     </FullscreenContainer>
@@ -79,8 +94,8 @@ export default function SportPage(props: SportProps) {
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const { params, res } = context
-  //const today = '2024-05-25'
-  const today = new Date().toISOString().split('T')[0]
+  const today = '2024-05-25'
+  //const today = new Date().toISOString().split('T')[0]
   try {
     console.log('INSIDE INNER INDEX!')
     //@ts-ignore
@@ -102,7 +117,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const events = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/events/${today}`)).json()
     //console.log(events)
 
-    const props: SportProps = { sport: { slug: slug }, sports, tournaments }
+    const props: SportProps = { sport: { slug: slug }, sports, tournaments, events }
 
     return {
       props: props,
