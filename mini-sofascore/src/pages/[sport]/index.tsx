@@ -23,6 +23,7 @@ interface SportProps {
   sports: Sport[]
   tournaments: Tournament[]
   events: GameEvent[]
+  date: string
 }
 
 export default function SportPage(props: SportProps) {
@@ -77,6 +78,7 @@ export default function SportPage(props: SportProps) {
               events={props.events}
               setSelectedEvent={setSelectedEvent}
               selectedEvent={selectedEvent}
+              date={props.date}
             ></EventsWidget>
           </Widget>
         )}
@@ -94,10 +96,9 @@ export default function SportPage(props: SportProps) {
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const { params, res } = context
-  const today = '2024-05-25'
+  const date = '2024-05-25'
   //const today = new Date().toISOString().split('T')[0]
   try {
-    console.log('INSIDE INNER INDEX!')
     //@ts-ignore
     const { sport } = params || {}
     let slug = Array.isArray(sport) ? sport[0] : sport || ''
@@ -114,10 +115,10 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const tournaments = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/tournaments`)).json()
     //console.log(tournaments)
 
-    const events = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/events/${today}`)).json()
+    const events = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/events/${date}`)).json()
     //console.log(events)
 
-    const props: SportProps = { sport: { slug: slug }, sports, tournaments, events }
+    const props: SportProps = { sport: { slug: slug }, sports, tournaments, events, date }
 
     return {
       props: props,

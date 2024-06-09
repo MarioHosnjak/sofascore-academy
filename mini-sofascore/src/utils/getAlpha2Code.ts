@@ -190,6 +190,7 @@ const countryToAlpha2: CountryCodeMap = {
     "United Arab Emirates": "AE",
     "United Kingdom": "GB",
     "United States of America": "US",
+    "USA": "US",
     "Uruguay": "UY",
     "Uzbekistan": "UZ",
     "Vanuatu": "VU",

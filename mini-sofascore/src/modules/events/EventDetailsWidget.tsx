@@ -1,7 +1,7 @@
 import { useThemeContext } from '@/context/ThemeContext'
 import GameEvent from '@/models/GameEvent'
 import { Box, Button, VStack, styled, Image, HStack, Spacer } from '@kuma-ui/core'
-import { formatDate } from '@/utils/formatDate'
+import { formatDate } from '@/utils/dateUtils'
 import { urlContainsString } from '@/utils/urlContainsString'
 import { useEffect, useRef, useState } from 'react'
 import Incident from '@/models/Incident'
