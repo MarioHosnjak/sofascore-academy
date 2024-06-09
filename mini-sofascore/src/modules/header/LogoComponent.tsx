@@ -25,7 +25,7 @@ const ButtonContainer = styled.div`
 `
 
 export default function LogoComponent({ handleTrophyClick }: { handleTrophyClick: any }) {
-  const { isDark } = useThemeContext()
+  const { isDark, setIsDark } = useThemeContext()
 
   return (
     <Box>
@@ -48,6 +48,9 @@ export default function LogoComponent({ handleTrophyClick }: { handleTrophyClick
             style={{ cursor: 'pointer' }}
             src={`/ic_settings_${isDark ? 'black' : 'white'}.svg`}
             alt="settings icon"
+            onClick={() => {
+              setIsDark(v => !v)
+            }}
           ></Image>
         </ButtonContainer>
       </StyledBox>

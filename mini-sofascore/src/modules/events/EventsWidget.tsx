@@ -9,7 +9,7 @@ import DateSelectorComponent from './DateSelectorComponent'
 
 const EventsContainer = styled('div')`
   padding-top: 20px;
-  padding-bottom: 5px;
+  padding-bottom: 20px;
   background-color: var(--surface-s1);
   border-radius: 16px;
 `
