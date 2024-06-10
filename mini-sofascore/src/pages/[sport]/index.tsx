@@ -7,7 +7,7 @@ import GameEvent from '@/models/GameEvent'
 import { useEffect, useRef, useState } from 'react'
 import LeaguesWidget from '@/modules/leagues/LeaguesWidget'
 import useMediaQuery from '@/utils/useMediaQuery'
-import theme from '../../kuma.config'
+import theme from '../../../kuma.config'
 import EventsWidget from '@/modules/events/EventsWidget'
 import EventDetailsWidget from '@/modules/events/EventDetailsWidget'
 import FullscreenContainer from '@/modules/Common/FullscreenContainer'
@@ -97,8 +97,6 @@ export default function SportPage(props: SportProps) {
 export const getServerSideProps: GetServerSideProps = async context => {
   const { params, res } = context
   const date = '2024-05-25'
-  //const today = '2024-06-08'
-
   //const today = new Date().toISOString().split('T')[0]
   try {
     //@ts-ignore
@@ -109,14 +107,16 @@ export const getServerSideProps: GetServerSideProps = async context => {
       slug = 'football'
     }
 
-    console.log(date)
     console.log(slug)
 
     const sports = await (await fetch(`https://academy-backend.sofascore.dev/sports`)).json()
+    //console.log(sports)
 
     const tournaments = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/tournaments`)).json()
+    //console.log(tournaments)
 
     const events = await (await fetch(`https://academy-backend.sofascore.dev/sport/${slug}/events/${date}`)).json()
+    //console.log(events)
 
     const props: SportProps = { sport: { slug: slug }, sports, tournaments, events, date }
 

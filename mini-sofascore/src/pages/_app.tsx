@@ -1,6 +1,7 @@
 import { ThemeContextProvider } from '@/context/ThemeContext'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
+import Footer from '@/modules/footer/Footer'
 import { SWRConfig } from 'swr'
 
 //@ts-ignore
@@ -19,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <SWRConfig value={{ fetcher }}>
       <ThemeContextProvider>
         <Component {...pageProps} />
+        <Footer></Footer>
       </ThemeContextProvider>
     </SWRConfig>
   )
